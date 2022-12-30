@@ -81,7 +81,7 @@ const createWindow = async () => {
     },
   });
 
-  mainWindow.loadURL(resolveHtmlPath('index.html'));
+  mainWindow.loadFile('index.html');
 
   mainWindow.on('ready-to-show', () => {
     if (!mainWindow) {
@@ -129,7 +129,7 @@ const createWindow = async () => {
 
       event.preventDefault();
       if (portList && portList.length > 0) {
-        callback(portList[0].portId);
+        callback(portList.find((p) => p.vendorId)?.portId || '');
       } else {
         callback(''); // Could not find any matching devices
       }
@@ -156,7 +156,7 @@ const createWindow = async () => {
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
-  new AppUpdater();
+  // new AppUpdater();
 };
 
 /**
